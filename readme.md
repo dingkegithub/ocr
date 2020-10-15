@@ -6,7 +6,7 @@ This is a action that caffe cpp web classify.
 - **`web框架:`** https://github.com/ipkn/crow.git
 - **`log框架:`** https://github.com/google/glog.git
 - **`c++第三方库:`** [boost-1.74.0](https://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.tar.gz) 
-- **`图片处理库:`** opencv-4.4.0
+- **`图片处理库:`** [opencv-4.4.0](https://opencv.org/releases/)
 - **`python`** python 3.7.5 用于制作模板
 
 ## python 以来安装
