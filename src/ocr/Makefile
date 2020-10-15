@@ -20,3 +20,7 @@ target:
 
 #install_name_tool -change @rpath/libboost_system.dylib  /Users/dkos/Public/cpplib/lib/libboost_system.dylib bin_ocr
 #install_name_tool -change @rpath/libboost_filesystem.dylib /Users/dkos/Public/cpplib/lib/libboost_filesystem.dylib bin_ocr
+
+
+#  g++ -std=c++11 -Wall -O -g -I XXX -L XXX -lxxxx xx.c
+#  ar rcs libxxx.a xxx.o
