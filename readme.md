@@ -5,7 +5,7 @@ This is a action that caffe cpp web classify.
 - **`json解析库:`**  https://github.com/nlohmann/json.git
 - **`web框架:`** https://github.com/ipkn/crow.git
 - **`log框架:`** https://github.com/google/glog.git
-- **`c++第三方库:`** boost-1.73.0
+- **`c++第三方库:`** [boost-1.74.0](https://dl.bintray.com/boostorg/release/1.74.0/source/boost_1_74_0.tar.gz) 
 - **`图片处理库:`** opencv-4.4.0
 - **`python`** python 3.7.5 用于制作模板
 
