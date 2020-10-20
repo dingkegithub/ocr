@@ -10,7 +10,7 @@
 #include <string>
 #include <ctime>
 #include "ocr.h"
-
+#include "middleware.h"
 
 namespace http_server {
 
@@ -30,7 +30,7 @@ namespace http_server {
         return resp;
     }
 
-    void router(crow::SimpleApp &app) {
+    void router(crow::App<OcrMiddleWare> &app) {
         CROW_ROUTE(app, "/ocr")
         .methods("POST"_method)
         ([](const crow::request &req) {

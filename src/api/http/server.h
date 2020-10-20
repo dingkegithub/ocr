@@ -7,10 +7,11 @@
 
 #include "classify.h"
 #include "crow_all.h"
+#include "middleware.h"
 
 namespace http_server {
     void run_server(int port) {
-        crow::SimpleApp app;
+        crow::App<OcrMiddleWare> app;
 
         router(app);
         app.port(port).multithreaded().run();

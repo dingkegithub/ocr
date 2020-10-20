@@ -10,18 +10,10 @@
 #include <string>
 
 
-struct AcrMiddleWare {
-    std::string message;
-    acr::Acr* acr_cl;
-
-    AcrMiddleWare() {
-        message = "acr";
-        acr_cl = acr::Acr::instance();
+struct OcrMiddleWare {
+    OcrMiddleWare() {
     }
 
-    void setMessage(std::string newMsg) {
-        message = std::move(newMsg);
-    }
 
     struct context {
     };
@@ -30,6 +22,9 @@ struct AcrMiddleWare {
     }
 
     void after_handle(crow::request& req, crow::response& res, context& ctx) {
+        res.add_header("Access-Control-Allow-Origin", "*");
+        res.add_header("Access-Control-Max-Age", "120");
+        res.add_header("Access-Control-Allow-Methods", "POST");
     }
 };
 
