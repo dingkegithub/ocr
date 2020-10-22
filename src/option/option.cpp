@@ -29,6 +29,7 @@ string parse_cmd_opt(int argc, char **pString) {
         ret = getopt_long(argc, pString, "c:h", opts, &opt_idx);
         if (ret == -1) {
             usage();
+            std::cout << 1 << std::endl;
             break;
         }
 

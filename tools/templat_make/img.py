@@ -121,8 +121,8 @@ def generate_template(src_img_dir, templat_out_dir):
         row = bin_mat.shape[0]
         col = bin_mat.shape[1]
 
-        v_w = 5
-        h_w = 10
+        v_w = 2
+        h_w = 2
         bin_mat[0:v_w, ] = 255
         bin_mat[row-v_w:, ] = 255
         bin_mat[:, 0:h_w] = 255

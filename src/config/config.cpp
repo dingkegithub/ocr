@@ -34,12 +34,7 @@ namespace cfg {
         nlohmann::json js;
         s >> js;
         cfg_info.acr = {
-               .model = js["acr"]["model"].get<string>(),
-               .mean = js["acr"]["mean"].get<string>(),
-               .deploy = js["acr"]["deploy"].get<string>(),
-               .word = js["acr"]["word"].get<string>(),
-               .gpu_enable = js["acr"]["gpu_enable"].get<bool>(),
-               .gpu_number = js["acr"]["gpu_number"].get<int>()
+               .model = js["acr"]["model"].get<string>()
         };
 
         cfg_info.env = {

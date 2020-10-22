@@ -1,4 +1,4 @@
-DEP_LIB=locallib
+DEP_LIB=/Users/dkos/Public/cpplib
 target:
 	c++ -g -std=c++11 -fpermissive -w                      \
                         src/main.cpp                       \

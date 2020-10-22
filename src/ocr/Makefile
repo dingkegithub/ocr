@@ -23,4 +23,8 @@ target:
 
 
 #  g++ -std=c++11 -Wall -O -g -I XXX -L XXX -lxxxx xx.c
+#  g++ -std=c++11 -Wall -O -g -I ../opensource/include/opencv4 -I ../opensource/include -I ./ -c ocr.cpp
+#
+#
 #  ar rcs libxxx.a xxx.o
+#   ar rcs libocr.a ocr.o

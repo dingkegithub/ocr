@@ -110,9 +110,10 @@ std::vector<std::vector<cv::Point> > OCR::clean_mess(std::vector<std::vector<cv:
 }
 
 void OCR::display_img(cv::Mat m, std::string name) {
-    return;
-    cv::imshow(name, m);
-    cv::waitKey();
+    if (this->display_switch) {
+        cv::imshow(name, m);
+        cv::waitKey();
+    }
 }
 
 int OCR::recognise(std::string file) {
@@ -125,6 +126,17 @@ int OCR::recognise(std::vector<uchar> v) {
     return this->recognise(img_mat);
 }
 
+int OCR::average_pix(cv::Mat &mat) {
+    int sum = 0;
+
+    for (int i=0; i<mat.rows; i++) {
+        for (int j=0; j<mat.cols; j++) {
+            sum += mat.at<uchar>(i, j);
+        } 
+    }
+
+    return sum / (mat.rows * mat.cols);
+}
 
 int OCR::recognise(cv::Mat& img_mat) {
     if (img_mat.empty()) {
@@ -135,26 +147,26 @@ int OCR::recognise(cv::Mat& img_mat) {
     cv::Mat bin_mat = this->binary(img_mat);
     this->display_img(bin_mat, "bin");
 
-    for (int i=0; i<5; i++) {
+    for (int i=0; i<2; i++) {
         for (int j=0; j<bin_mat.cols; j++) {
             bin_mat.at<uchar>(i, j) = 255;
         }
     }
 
-    for (int i=bin_mat.rows-5; i<bin_mat.rows; i++) {
+    for (int i=bin_mat.rows-2; i<bin_mat.rows; i++) {
         for (int j=0; j<bin_mat.cols; j++) {
             bin_mat.at<uchar>(i, j) = 255;
         }
     }
 
     for (int i=0; i<bin_mat.rows; i++) {
-        for (int j=0; j<10; j++) {
+        for (int j=0; j<2; j++) {
             bin_mat.at<uchar>(i, j) = 255;
         }
     }
 
     for (int i=0; i<bin_mat.rows; i++) {
-        for (int j=bin_mat.cols-10; j<bin_mat.cols; j++) {
+        for (int j=bin_mat.cols-2; j<bin_mat.cols; j++) {
             bin_mat.at<uchar>(i, j) = 255;
         }
     }
@@ -175,7 +187,7 @@ int OCR::recognise(cv::Mat& img_mat) {
     std::vector<std::vector<cv::Point> > contours;
     cv::findContours(normalize_mat, contours, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
     contours = this->clean_mess(contours, 100.);
-    //std::cout << "contours size: " << contours.size() << std::endl;
+    std::cout << "contours size: " << contours.size() << std::endl;
 
     if (contours.size() != 2) {
         return -1;
@@ -281,8 +293,20 @@ cv::Mat OCR::binary(cv::Mat img_mat) {
     cv::Mat gray_mat;
     cv::cvtColor(erode_mat, gray_mat, cv::COLOR_BGR2GRAY);
 
-    cv::Mat adaptive_mat;
-    cv::adaptiveThreshold(gray_mat, adaptive_mat, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 10);
+    int avg = average_pix(gray_mat);
+    std::cout << "avg= " << avg << std::endl;
+    
+    this->display_img(gray_mat, "gray");
+
+    cv::Mat thresh_mat;
+    double db = cv::threshold(gray_mat, thresh_mat, avg, 255, cv::THRESH_BINARY);
+    this->display_img(thresh_mat, "thresh");
+
+    cv::Mat adaptive_mat = this->erode_img(thresh_mat);
+
+    // cv::Mat adaptive_mat;
+    // cv::adaptiveThreshold(gray_mat, adaptive_mat, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 10);
+    // cv::adaptiveThreshold(thresh_mat, adaptive_mat, 255, cv::ADAPTIVE_THRESH_GAUSSIAN_C, cv::THRESH_BINARY, 25, 10);
     return adaptive_mat;
 }
 

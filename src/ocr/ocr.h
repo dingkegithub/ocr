@@ -16,7 +16,8 @@ class OCR {
 
     private:
         void load();
-	int read_file(std::string file, std::string &s);
+        int read_file(std::string file, std::string &s);
+        int average_pix(cv::Mat &mat);
         cv::Mat binary(cv::Mat img_mat);
         cv::Mat erode_img(cv::Mat img_mat);
         cv::Mat dilate_img(cv::Mat img_mat);
@@ -25,11 +26,12 @@ class OCR {
         OCR();
 
     public:
+        bool display_switch;
         static OCR* getInstance();
         OCR* set_template(std::string p);
         int recognise(std::string file);
         int recognise(cv::Mat& mat);
-	int recognise(std::vector<uchar> v);
+        int recognise(std::vector<uchar> v);
         void test(std::string test_dir);
 };
 
